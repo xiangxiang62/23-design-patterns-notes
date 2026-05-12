@@ -66,8 +66,8 @@
 |------|----------|------------|----------|----------|
 | 创建型 | **单例 (Singleton)** | 保证一个类只有一个实例 | [查看笔记](./creational-patterns/singleton.md) | ✅️ |
 | 创建型 | **工厂方法 (Factory Method)** | 将对象创建延迟到子类 | [查看笔记](./creational-patterns/factory-method.md) | ✅️ |
-| 创建型 | **抽象工厂 (Abstract Factory)** | 创建一系列相关对象 | [查看笔记](./creational-patterns/abstract-factory.md) | ⏳ |
-| 创建型 | **建造者 (Builder)** | 分步构建复杂对象 | [查看笔记](./creational-patterns/builder.md) | ⏳ |
+| 创建型 | **抽象工厂 (Abstract Factory)** | 创建一系列相关对象 | [查看笔记](./creational-patterns/abstract-factory.md) | ✅️ |
+| 创建型 | **建造者 (Builder)** | 分步构建复杂对象 | [查看笔记](./creational-patterns/builder.md) | ✅️ |
 | 创建型 | **原型 (Prototype)** | 通过克隆来创建对象 | [查看笔记](./creational-patterns/prototype.md) | ⏳ |
 | 结构型 | **适配器 (Adapter)** | 转换接口以兼容协作 | [查看笔记](./structural-patterns/adapter.md) | ⏳ |
 | 结构型 | **桥接 (Bridge)** | 分离抽象与实现 | [查看笔记](./structural-patterns/bridge.md) | ⏳ |
