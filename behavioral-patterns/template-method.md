@@ -41,3 +41,109 @@
 模板方法模式具有的角色和职责:
 1）抽象类：定义模板方法和基本流程骨架，声明一些抽象操作让子类实现。
 2）具体子类：实现父类定义的抽象步骤，完成特定子类自己的逻辑。下面用一张类图帮大家更直观地理解模板方法模式的结构。
+
+## 模板方法模式的实现
+
+下面就以 “订单处理流程” 为例，我们用模板方法模式实现一个简单的订单处理流程。
+
+1）定义抽象类：提供模板方法模式和公共流程。
+
+```java
+abstract class OrderProcessTemplate {
+    // 模板方法，定义了订单处理的固定步骤
+    public final void processOrder() {
+        checkStock();
+        pay();
+        deliver();
+        notifyCustomer();
+    }
+
+    // 校验库存的步骤，所有订单都需要
+    protected void checkStock() {
+        System.out.println("检查库存");
+    }
+
+    // 支付步骤，交由具体子类实现
+    protected abstract void pay();
+
+    // 发货步骤，交由具体子类实现
+    protected abstract void deliver();
+
+    // 通知客户的步骤，所有订单都需要
+    protected void notifyCustomer() {
+        System.out.println("通知客户订单处理完成");
+    }
+}
+```
+
+在这段代码中，我们定义了一个 OrderProcessTemlate 类，其中的 processOrder 方法是模板方法，包含了订单处理公共步骤，checkStock 和 notifyCustomer 是所有的订单都必须进行的步骤，所以它们在父类中实现了。而 pay 和 deliver 这些具体的步骤则被声明为抽象方法，由具体的子类实现。
+
+2）实现具体子类：实现具体步骤。
+
+```java
+class PhysicalProductOrder extends OrderProcessTemplate {
+    @Override
+    protected void pay() {
+        System.out.println("支付实物商品的订单");
+    }
+
+    @Override
+    protected void deliver() {
+        System.out.println("发货实物商品");
+    }
+}
+```
+
+具体子类 PhysicalProductOrder 实现了支付和发货的具体逻辑，对于实物商品的订单，支付方式和发货方式可能与虚拟商品不同。
+
+```java
+class VirtualProductOrder extends OrderProcessTemplate {
+    @Override
+    protected void pay() {
+        System.out.println("支付虚拟商品的订单");
+    }
+
+    @Override
+    protected void deliver() {
+        System.out.println("通过邮件发送虚拟商品");
+    }
+}
+```
+
+VirtualProductOrder 继承了模板类，并实现了虚拟商品的支付和发货逻辑。对于虚拟商品，支付和发货的流程与实物商品不同。
+
+3）客户端调用示例
+
+```java
+public class Client {
+    public static void main(String[] args) {
+        System.out.println("处理实物商品订单：");
+        OrderProcessTemplate physicalOrder = new PhysicalProductOrder();
+        physicalOrder.processOrder(); // 调用模板方法
+
+        System.out.println("\n处理虚拟商品订单：");
+        OrderProcessTemplate virtualOrder = new VirtualProductOrder();
+        virtualOrder.processOrder(); // 调用模板方法
+    }
+}
+```
+
+在这个下单的例子中，使用模板方法模式可以帮助我们抽象出公共的处理流程(如检查库存和通知客户)，并允许具体的子类去定制化支付和发货的实现细节。
+
+这样一来，系统能够处理不同类型的订单，但流程依然保持一致，同时又能根据具体的订单类型(如实物商品和虚拟商品)来定制具体步骤。
+
+## 模板方法模式的优缺点
+
+#### 优点
+
+- 代码复用性高：模板方法模式的最大优势就是能够在父类中提供一个统一的流程框架，子类只需要实现特定的步骤，避免了重复的代码，实现了高效的代码复用。
+- 控制流程：父类定义了一个整体的算法流程，并且控制了步骤的执行顺序，确保了算法的一致性。子类只能修改某些特定步骤，保证了流程的稳定性。
+- 提高扩展性：模板方法模式将通用的逻辑放在父类中，子类只需关心自己特有的部分。这样，新增子类时，
+  基本不需要修改现有代码，扩展非常方便。
+
+#### 缺点
+
+- 父类过于庞大：如果模板方法里有很多步骤，而每个步骤都涉及到大量的逻辑，父类可能会变得非常臃肿，难以维护。
+- 不够灵活：模板方法模式限制了子类的行为，子类只能修改父类中的某些步骤，无法对整体流程进行更多的定制，这在某些情况下可能导致灵活性不足。
+- 过多的继承关系：使用模板方法模式时，可能会引入过多的继承层次，增加了类之间的耦合性，不利于系统的可维护性。
+
