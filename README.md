@@ -68,7 +68,7 @@
 | 创建型 | **工厂方法 (Factory Method)** | 将对象创建延迟到子类 | [查看笔记](./creational-patterns/factory-method.md) | ✅️ |
 | 创建型 | **抽象工厂 (Abstract Factory)** | 创建一系列相关对象 | [查看笔记](./creational-patterns/abstract-factory.md) | ✅️ |
 | 创建型 | **建造者 (Builder)** | 分步构建复杂对象 | [查看笔记](./creational-patterns/builder.md) | ✅️ |
-| 创建型 | **原型 (Prototype)** | 通过克隆来创建对象 | [查看笔记](./creational-patterns/prototype.md) | ⏳ |
+| 创建型 | **原型 (Prototype)** | 通过克隆来创建对象 | [查看笔记](./creational-patterns/prototype.md) | ✅️ |
 | 结构型 | **适配器 (Adapter)** | 转换接口以兼容协作 | [查看笔记](./structural-patterns/adapter.md) | ⏳ |
 | 结构型 | **桥接 (Bridge)** | 分离抽象与实现 | [查看笔记](./structural-patterns/bridge.md) | ⏳ |
 | 结构型 | **组合 (Composite)** | 树形结构统一处理 | [查看笔记](./structural-patterns/composite.md) | ⏳ |
@@ -85,7 +85,7 @@
 | 行为型 | **观察者 (Observer)** | 一对多的依赖通知 | [查看笔记](./behavioral-patterns/observer.md) | ⏳ |
 | 行为型 | **状态 (State)** | 状态驱动行为变化 | [查看笔记](./behavioral-patterns/state.md) | ⏳ |
 | 行为型 | **策略 (Strategy)** | 算法族可互换 | [查看笔记](./behavioral-patterns/strategy.md) | ⏳ |
-| 行为型 | **模板方法 (Template Method)** | 定义算法骨架 | [查看笔记](./behavioral-patterns/template-method.md) | ⏳ |
+| 行为型 | **模板方法 (Template Method)** | 定义算法骨架 | [查看笔记](./behavioral-patterns/template-method.md) | ✅️ |
 | 行为型 | **访问者 (Visitor)** | 数据和操作分离 | [查看笔记](./behavioral-patterns/visitor.md) | ⏳ |
 
 ---
