@@ -161,3 +161,177 @@ public class Client {
 - **潜在的过渡使用**：适配器模式的滥用可能导致设计过度复杂吗，特别是在接口之间差异较小时，可能不值得引入适配器，而直接通过调整接口既可以解决问题。过多的适配器可能导致系统变得难以理解和维护。
 
 - **不适合所有场景**：适配器模式主要适用于接口不兼容的情况，对于接口设计不合理的情况，可能并不适用。过度依赖适配器可能掩盖了系统设计的问题，造成长期维护上的困难。
+
+
+
+---
+
+
+
+# AI：适配器模式（Adapter Pattern）
+
+## 1. 概念
+
+适配器模式是一种结构型设计模式，它的核心思想是**将一个类的接口转换成客户端期望的另一个接口**，使原本由于接口不兼容而不能一起工作的类可以协同工作。
+
+换句话说，适配器模式就像电源插座的“转换器”，让原本不匹配的接口能无缝对接。
+
+------
+
+## 2. 适用场景
+
+- 当你希望使用某些现有类，但接口与需求不兼容时。
+- 当你想创建一个可复用的类，该类与一些不兼容的接口协同工作。
+- 系统需要通过一些现有组件提供统一接口。
+
+------
+
+## 3. 角色
+
+适配器模式主要有四个角色：
+
+| 角色        | 说明                                                         |
+| ----------- | ------------------------------------------------------------ |
+| **Target**  | 目标接口，定义客户端所期待的接口。                           |
+| **Adapter** | 适配器，实现 Target 接口，通过组合或继承调用 Adaptee 的功能。 |
+| **Adaptee** | 被适配者，已有接口，需要适配才能被使用。                     |
+| **Client**  | 客户端，通过 Target 接口调用功能。                           |
+
+------
+
+## 4. 分类
+
+适配器模式主要分为两种：
+
+1. **类适配器模式（通过继承实现）**
+   - 使用继承，将 Adaptee 类的接口转换成Target接口。
+   - 优点：不需要额外的组合对象，直接通过继承即可。
+   - 缺点：Java 等单继承语言受限制。
+2. **对象适配器模式（通过组合实现）**
+   - 适配器内部持有 Adaptee 实例，通过组合方式实现 Target 接口。
+   - 优点：更灵活，支持多继承或不同类型组合。
+   - 缺点：需要额外创建对象引用。
+
+------
+
+## 5. UML 类图
+
+```mermaid
+classDiagram
+    class Target {
+        <<interface>>
+        +request()
+    }
+
+    class Adaptee {
+        +specificRequest()
+    }
+
+    class Adapter {
+        -adaptee: Adaptee
+        +request()
+    }
+
+    Target <|.. Adapter
+    Adapter --> Adaptee
+```
+
+------
+
+## 6. 示例代码（Java 风格）
+
+### 6.1 对象适配器模式示例
+
+```java
+// 目标接口
+interface Target {
+    void request();
+}
+
+// 被适配者
+class Adaptee {
+    public void specificRequest() {
+        System.out.println("Adaptee's specific request");
+    }
+}
+
+// 适配器
+class Adapter implements Target {
+    private Adaptee adaptee;
+
+    public Adapter(Adaptee adaptee) {
+        this.adaptee = adaptee;
+    }
+
+    @Override
+    public void request() {
+        // 适配调用
+        adaptee.specificRequest();
+    }
+}
+
+// 客户端
+public class Client {
+    public static void main(String[] args) {
+        Adaptee adaptee = new Adaptee();
+        Target target = new Adapter(adaptee);
+        target.request(); // 输出：Adaptee's specific request
+    }
+}
+```
+
+### 6.2 类适配器模式示例
+
+```java
+// 目标接口
+interface Target {
+    void request();
+}
+
+// 被适配者
+class Adaptee {
+    public void specificRequest() {
+        System.out.println("Adaptee's specific request");
+    }
+}
+
+// 适配器通过继承实现
+class ClassAdapter extends Adaptee implements Target {
+    @Override
+    public void request() {
+        // 调用父类方法
+        specificRequest();
+    }
+}
+
+// 客户端
+public class Client {
+    public static void main(String[] args) {
+        Target target = new ClassAdapter();
+        target.request(); // 输出：Adaptee's specific request
+    }
+}
+```
+
+------
+
+## 7. 优缺点
+
+**优点**：
+
+- 可以让任何两个没有关联的类一起运行。
+- 提高了类的复用性。
+- 符合开闭原则，对扩展开放，对修改关闭。
+
+**缺点**：
+
+- 增加系统的复杂性。
+- 多层适配器可能导致系统难以理解。
+
+------
+
+## 8. 总结
+
+适配器模式是一种非常实用的结构型设计模式，主要解决接口不兼容的问题。
+对象适配器模式更灵活，类适配器模式继承简单直接。
+在实际开发中，如果需要复用现有类而接口不匹配，适配器模式几乎是首选方案。
