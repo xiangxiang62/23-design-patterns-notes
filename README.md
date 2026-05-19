@@ -1,6 +1,7 @@
 # 23-design-patterns-notes
 
 <div align="center">
+    
 ![设计模式](https://img.shields.io/badge/设计模式-23种经典模式-blue)
 ![文档](https://img.shields.io/badge/文档-学习笔记-green)
 ![进度](https://img.shields.io/badge/进度-持续更新中-orange)
