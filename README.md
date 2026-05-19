@@ -1,7 +1,6 @@
 # 23-design-patterns-notes
 
 <div align="center">
-
 ![设计模式](https://img.shields.io/badge/设计模式-23种经典模式-blue)
 ![文档](https://img.shields.io/badge/文档-学习笔记-green)
 ![进度](https://img.shields.io/badge/进度-持续更新中-orange)
@@ -71,7 +70,7 @@
 | 创建型 | **原型 (Prototype)** | 通过克隆来创建对象 | [查看笔记](./creational-patterns/prototype.md) | ✅️ |
 | 结构型 | **适配器 (Adapter)** | 转换接口以兼容协作 | [查看笔记](./structural-patterns/adapter.md) | ✅️ |
 | 结构型 | **桥接 (Bridge)** | 分离抽象与实现 | [查看笔记](./structural-patterns/bridge.md) | ✅️ |
-| 结构型 | **组合 (Composite)** | 树形结构统一处理 | [查看笔记](./structural-patterns/composite.md) | ⏳ |
+| 结构型 | **组合 (Composite)** | 树形结构统一处理 | [查看笔记](./structural-patterns/composite.md) | ✅️ |
 | 结构型 | **装饰器 (Decorator)** | 动态添加额外职责 | [查看笔记](./structural-patterns/decorator.md) | ⏳ |
 | 结构型 | **外观 (Facade)** | 提供统一高层接口 | [查看笔记](./structural-patterns/facade.md) | ⏳ |
 | 结构型 | **享元 (Flyweight)** | 共享细粒度对象 | [查看笔记](./structural-patterns/flyweight.md) | ⏳ |
