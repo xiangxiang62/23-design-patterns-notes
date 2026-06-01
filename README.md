@@ -93,7 +93,9 @@
 ## 🚀 快速开始
 
 ### 在线阅读
-所有笔记均为 Markdown 格式，可直接在 GitHub 上浏览。
+所有笔记均为 Markdown 格式，可直接在 GitHub 上浏览；
+
+或者点击在线文档进行浏览：https://xiangxiang62.github.io/23-design-patterns-notes/。
 
 ### 本地阅读
 ```bash
