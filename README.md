@@ -84,7 +84,7 @@
 | 行为型 | **备忘录 (Memento)** | 捕获并恢复状态 | [查看笔记](./behavioral-patterns/memento.md) | ⏳ |
 | 行为型 | **观察者 (Observer)** | 一对多的依赖通知 | [查看笔记](./behavioral-patterns/observer.md) | ⏳ |
 | 行为型 | **状态 (State)** | 状态驱动行为变化 | [查看笔记](./behavioral-patterns/state.md) | ⏳ |
-| 行为型 | **策略 (Strategy)** | 算法族可互换 | [查看笔记](./behavioral-patterns/strategy.md) | ⏳ |
+| 行为型 | **策略 (Strategy)** | 算法族可互换 | [查看笔记](./behavioral-patterns/strategy.md) | ✅️ |
 | 行为型 | **模板方法 (Template Method)** | 定义算法骨架 | [查看笔记](./behavioral-patterns/template-method.md) | ✅️ |
 | 行为型 | **访问者 (Visitor)** | 数据和操作分离 | [查看笔记](./behavioral-patterns/visitor.md) | ⏳ |
 
