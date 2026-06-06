@@ -74,7 +74,7 @@
 | 结构型 | **组合 (Composite)** | 树形结构统一处理 | [查看笔记](./structural-patterns/composite.md) | ✅️ |
 | 结构型 | **装饰器 (Decorator)** | 动态添加额外职责 | [查看笔记](./structural-patterns/decorator.md) | ✅️ |
 | 结构型 | **外观 (Facade)** | 提供统一高层接口 | [查看笔记](./structural-patterns/facade.md) | ✅️ |
-| 结构型 | **享元 (Flyweight)** | 共享细粒度对象 | [查看笔记](./structural-patterns/flyweight.md) | ⏳ |
+| 结构型 | **享元 (Flyweight)** | 共享细粒度对象 | [查看笔记](./structural-patterns/flyweight.md) | ✅️ |
 | 结构型 | **代理 (Proxy)** | 控制对象访问 | [查看笔记](./structural-patterns/proxy.md) | ✅️ |
 | 行为型 | **责任链 (Chain of Responsibility)** | 请求沿链传递 | [查看笔记](./behavioral-patterns/chain-of-responsibility.md) | ⏳ |
 | 行为型 | **命令 (Command)** | 请求封装为对象 | [查看笔记](./behavioral-patterns/command.md) | ⏳ |
