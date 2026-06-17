@@ -12,3 +12,197 @@
 
 这个模式的最大好处就是：扩展性强，不破坏原结构，逻辑清晰，职责明确。如果后续新增一个 “安全部门” 来查岗，那只需要新增一个访问者类，不用动员工类半行代码。
 
+### 为什么要使用访问者模式？
+
+在实际开发中，有时候我们面对的数据结构是相对稳定的，但是需要不断的新增功能或者操作。如果我们直接在数据结构的类里加方法，类会不断膨胀，变得难以维护，而且维护了单一职责原则和开闭原则。
+
+通过访问者模式，我们可以很优雅的把新增的功能封装成访问者类，数据结构本身不懂，只需要开放一个接受访问者的方法（accept 方法），就可以实现新功能的扩展，大大提高了系统的灵活性和可维护性。
+
+### 访问者模式的应用场景
+
+- 文档处理系统重的格式转换：对于一个文档处理系统，可能需要处理各种格式的文档（如 PDF、Word、Excel 等），而每种文档格式的解析与转换逻辑不同。访问者模式可以用来定义一个通用的操作接口，允许对不同类型的文档进行格式转换处理，扩展时无需修改文档类的代码，只需要增加新的转换访问者。
+- 编译器设计：在编译器中，源代码通常会被解析为抽象语法树。不同类型的节点（如类、函数、表达式）会有不同的处理逻辑。使用访问者模式，编译器可以在不修改节点类的情况下，针对不同节点执行特定的操作，如语法检查、代码优化等。
+
+### 访问者模式基本结构
+
+1）抽象元素：这是所有元素的基类或者接口，声明了接受访问者的 accept() 方法。每个元素类都会实现该方法，用来将访问者传递给自己。
+
+2）具体元素：每个具体元素都实现了抽象元素的 acept() 方法，通常这个方法会将自己传递给访问者，让访问者执行特定的操作。
+
+3）抽象访问者：定义了针对每个具体元素类的操作，每个具体访问者都实现这个接口，并且为每个元素类提供不同的操作。
+
+4）具体访问者：实现了抽象访问者接口，并为每个具体元素提供特定的操作。
+
+5）对象结构：包含一组元素对象，提供一个 accept() 方法，允许访问者访问结构中的每个元素。
+
+### 访问者模式的实现
+
+下面就以 "文档格式转换" 为例，我们使用访问者模式实现一个简单的文档处理系统。
+
+1）定义访问者接口：声明针对不同文档类型的转换方法。
+
+```java
+public interface DocumentVisitor {
+    void visit(PDFDocument pdf);
+    void visit(WordDocument word);
+    void visit(ExcelDocument excel);
+}
+```
+
+这一步定义了访问者的统一接口，每种文档类型（PDF、Word、Excel）对应一个访问方法，用于封装 “对文档进行格式转换” 的逻辑入口。
+
+2）定义文档元素接口：提供接受访问者的方法。
+
+```java
+public interface Document {
+    void accept(DocumentVisitor visitor);
+}
+```
+
+这个文档类型实现这个接口，就可以 ”接受“ 访问者，调用相应的转换方法。通过双分派机制，把访问者逻辑交给访问者处理，文档本身无需关心。
+
+3）实现具体文档类：如 PDF、Word、Excel
+
+```java
+public class PDFDocument implements Document {
+    private String content;
+
+    public PDFDocument(String content) {
+        this.content = content;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    @Override
+    public void accept(DocumentVisitor visitor) {
+        visitor.visit(this);
+    }
+}
+
+public class WordDocument implements Document {
+    private String content;
+
+    public WordDocument(String content) {
+        this.content = content;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    @Override
+    public void accept(DocumentVisitor visitor) {
+        visitor.visit(this);
+    }
+}
+
+public class ExcelDocument implements Document {
+    private String[][] table;
+
+    public ExcelDocument(String[][] table) {
+        this.table = table;
+    }
+
+    public String[][] getTable() {
+        return table;
+    }
+
+    @Override
+    public void accept(DocumentVisitor visitor) {
+        visitor.visit(this);
+    }
+}
+```
+
+每个文档类都实现 accept 方法，并在其中调用访问者对应方法，把自身 this 传过去。这样访问者就可以获取到文档数据并处理，而文档类不需要知道怎么处理。
+
+4）实现具体访问者类：将文档转换为 HTML 格式
+
+```java
+public class HtmlExportVisitor implements DocumentVisitor {
+
+    @Override
+    public void visit(PDFDocument pdf) {
+        System.out.println("<html><body><h1>PDF 内容</h1><p>" + pdf.getContent() + "</p></body></html>");
+    }
+
+    @Override
+    public void visit(WordDocument word) {
+        System.out.println("<html><body><h1>Word 内容</h1><p>" + word.getContent() + "</p></body></html>");
+    }
+
+    @Override
+    public void visit(ExcelDocument excel) {
+        System.out.println("<html><body><h1>Excel 内容</h1><table border='1'>");
+        for (String[] row : excel.getTable()) {
+            System.out.print("<tr>");
+            for (String cell : row) {
+                System.out.print("<td>" + cell + "</td>");
+            }
+            System.out.println("</tr>");
+        }
+        System.out.println("</table></body></html>");
+    }
+}
+```
+
+这个访问者类实现了将文档转换为 HTML 的具体逻辑。每种文档转换方式不同，但是他们共用一个访问者接口，使得扩展变得灵活又统一。
+
+5）客户端调用示例
+
+```java
+public class Client {
+    public static void main(String[] args) {
+        Document pdf = new PDFDocument("这是 PDF 文件的内容");
+        Document word = new WordDocument("这是 Word 文档的内容");
+        Document excel = new ExcelDocument(new String[][] {
+            {"姓名", "成绩"},
+            {"鱼皮", "90"},
+            {"Yes哥", "95"}
+        });
+
+        DocumentVisitor htmlExporter = new HtmlExportVisitor();
+
+        pdf.accept(htmlExporter);
+        word.accept(htmlExporter);
+        excel.accept(htmlExporter);
+    }
+}
+```
+
+输出结果：
+
+```
+<html><body><h1>PDF 内容</h1><p>这是 PDF 文件的内容</p></body></html>
+<html><body><h1>Word 内容</h1><p>这是 Word 文档的内容</p></body></html>
+<html><body><h1>Excel 内容</h1><table border='1'><tr><td>姓名</td><td>成绩</td></tr><tr><td>鱼皮</td><td>90</td></tr><tr><td>Yes哥</td><td>95</td></tr></table></body></html>
+```
+
+客户端通过访问者 HtmlExportVisitor 完成了对多个文档类型的统一格式转换。访问者模式让新增新的转换方式（比如导出为 Markdown 或 HTML）变得非常容易，而无需修改原有文档类的任何代码。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
